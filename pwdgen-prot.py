@@ -1,26 +1,27 @@
+## VEry BAsic Password Generator - VEBAPG##
+
+import os
 import random
 import sys
-  
+
+CHARNUM = 93 # this is the amount of printable characters to ensure randchar is within the printable range from 33 to 126 in ASCII
+FIRSTCHAR = 33 # this is the first printable character in ASCII
+
 def pwdgen(size):
     pwd = ''
     if size <= 0:
         return ""
     else:
-        ch_code = 0
-        password = list()
-        for i in range(size):
-            if random.choice([True, False]):
-                ch_code = random.randint(97, 122)
-            else:
-                ch_code = random.randint(48, 57)
-            char = chr(ch_code)
-            if ch_code < 123 and ch_code > 96:
-                if random.choice([True, False]):
-                    char = char.upper()
-            
-            password.append(char) 
-        for c in password:
-            pwd += c
+        password = []
+        while len(password) < size:
+            randbyte = os.urandom(1)
+            randval = randbyte[0]
+            maxlimit = 256 - (256 % CHARNUM) 
+            if randval < maxlimit:
+                # da qua ho un valore che va da 0 a 186
+                password.append(chr(randchar))
+
+        pwd = ''.join(password)
         return pwd
 
 
