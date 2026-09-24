@@ -1,25 +1,26 @@
 ## VEry BAsic Password Generator - VEBAPG##
 
 import os
-import random
 import sys
-
-CHARNUM = 93 # this is the amount of printable characters to ensure randchar is within the printable range from 33 to 126 in ASCII
-FIRSTCHAR = 33 # this is the first printable character in ASCII
+# import tkinter as tk
+# from tkinter import messagebox
 
 def pwdgen(size):
-    pwd = ''
+    pwd = ""
+    characters = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+    
     if size <= 0:
         return ""
     else:
         password = []
         while len(password) < size:
-            randbyte = os.urandom(1)
-            randval = randbyte[0]
-            maxlimit = 256 - (256 % CHARNUM) 
-            if randval < maxlimit:
-                # da qua ho un valore che va da 0 a 186
-                password.append(chr(randchar))
+            randbyte = os.urandom(1)[0]
+
+            maxlimit = 256 - (256 % len(characters)) 
+
+            if randbyte < maxlimit:
+                # from here, randbyte goes from 0 to 186
+                password.append(characters[randbyte%len(characters)])
 
         pwd = ''.join(password)
         return pwd
@@ -32,6 +33,14 @@ def main():
     pwd = pwdgen(length)
 
     print(pwd)
+    input("Premi INVIO per chiudere...")
+
+    # Creazione di una semplice interfaccia pop-up
+    # root = tk.Tk()
+    # root.withdraw() # Nasconde la finestra principale vuota di tkinter
+
+    # Mostra il pop-up con la password generata
+    # messagebox.showinfo("Generatore Password", f"La tua nuova password è:\n\n{pwd}")
 
 
 
